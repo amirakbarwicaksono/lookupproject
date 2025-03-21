@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file://D%3A/00.%20Project%20Lookup%20LP/02.%20App/v1.1/Framework/frontend/pages/_app.tsx"],"sourcesContent":["import \"../frontend/styles/globals.css\";\r\nimport type { AppProps } from \"next/app\";\r\n\r\nfunction MyApp({ Component, pageProps }: AppProps) {\r\n    return <Component {...pageProps} />;\r\n}\r\n\r\nexport default MyApp;\r\n"],"names":[],"mappings":";;;;;;;;;;;AAGA,SAAS,MAAM,EAAE,SAAS,EAAE,SAAS,EAAY;IAC7C,qBAAO,qKAAC;QAAW,GAAG,SAAS;;;;;;AACnC;uCAEe"}},
+    {"offset": {"line": 76, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

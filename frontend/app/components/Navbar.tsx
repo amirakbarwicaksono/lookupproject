@@ -72,31 +72,31 @@ useEffect(() => {
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-4">
                         {storedUsername && (
-                            <div className="hover:text-gray-600 animate-bounce">
-                                Howdy, {storedUsername === "admin" ? "DA Team?" : storedUsername === "aldus" ? "Aldus?" : storedUsername === "yerrisa" ? "Yerrisa?" : storedUsername  === "ryan" ? "Ryan?" : storedUsername === "christin" ? "Christin?" : storedUsername === "aurel" ? "Aurel?" : storedUsername}
+                            <div className="hover:text-gray-600 animate-bounce font-bold">
+                                Howdy, {storedUsername === "admin" ? "DA Team?" : storedUsername === "aldus" ? "Aldus?" : storedUsername === "yerrisa" ? "Yerrisa?" : storedUsername  === "ryan" ? "Ryan?" : storedUsername === "christin" ? "Christin?" : storedUsername === "aurel" ? "Aurel?" : storedUsername  === "lingga" ? "Lingga?" : storedUsername}
                             </div>
                         )}	 	
-                    <Link href="/" className="hover:text-gray-600">
+                    <Link href="/" className="hover:text-gray-600 font-bold">
                         Home
                     </Link>
                     {isLoggedIn && (
                         <>
-                            <Link href="/dashboard" className="hover:text-gray-600">
+                            <Link href="/dashboard" className="hover:text-gray-600 font-bold">
                                 App
                             </Link>
-                            <Link href="/upload" className="hover:text-gray-600">
+                            <Link href="/upload" className="hover:text-gray-600 font-bold">
                                 Upload
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="text-red-500 hover:text-gray-600"
+                                className="text-red-500 hover:text-gray-600 font-bold"
                             >
                                 Logout
                             </button>
                         </>
                     )}
                     {!isLoggedIn && (
-                        <Link href="/login" className="hover:text-gray-600">
+                        <Link href="/login" className="hover:text-gray-600 font-bold">
                             Login
                         </Link>
                     )}
@@ -108,7 +108,7 @@ useEffect(() => {
                 <div className="md:hidden mt-7 shadow-md rounded-lg pt-12" style={{ backgroundColor: 'var(--navbar-bg)', color: 'var(--navbar-text)' }}>
                     <Link
                         href="/"
-                        className="block px-4 py-2 text-sm hover:bg-gray-600"
+                        className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Home
@@ -117,14 +117,14 @@ useEffect(() => {
                         <>
                             <Link
                                 href="/dashboard"
-                                className="block px-4 py-2 text-sm hover:bg-gray-600"
+                                className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 App
                             </Link>
                             <Link
                                 href="/upload"
-                                className="block px-4 py-2 text-sm hover:bg-gray-600"
+                                className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Upload
@@ -134,7 +134,7 @@ useEffect(() => {
                                     handleLogout();
                                     setIsMenuOpen(false);
                                 }}
-                                className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-600 hover:text-white"
+                                className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-600 hover:text-white font-bold"
                             >
                                 Logout
                             </button>
@@ -143,7 +143,7 @@ useEffect(() => {
                     {!isLoggedIn && (
                         <Link
                             href="/login"
-                            className="block px-4 py-2 text-sm hover:bg-gray-600"
+                            className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Login
