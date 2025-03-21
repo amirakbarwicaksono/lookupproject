@@ -223,16 +223,27 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Here are some screenshots of the frontend application:
 
 #### Login Page
-![Login Page](path/to/login-screenshot.png)
+![Login](image-1.png)
 
-#### Dashboard
-![Dashboard](path/to/dashboard-screenshot.png)
+#### Home Data Info
+![Home](image-2.png)
+
+#### Dashboard With Access
+![Dashboard Admin](image-4.png)
+![Dashboard User](image-5.png)
 
 #### Upload Page
-![Upload Page](path/to/upload-screenshot.png)
+![Upload Admin](image-6.png)
+![Upload User](image-7.png)
 
-#### Log History Page
-![Log History Page](path/to/log-history-screenshot.png)
+#### Lookup Process
+![Lookup Process](image-8.png)
+
+#### Log History Page & Export CSV
+![Log-History](image-3.png)
+
+#### Mobile View
+![Mobile View](image-9.png)
 
 ## License
 
