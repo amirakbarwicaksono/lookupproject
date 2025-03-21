@@ -1,59 +1,10 @@
-// "use client";
-
-// import Link from "next/link";
-// import { useAuth } from "../context/AuthContext";
-// import { useRouter } from "next/navigation";
-
-// const Navbar = () => {
-//     const { isLoggedIn, logout } = useAuth();
-//     const router = useRouter();
-
-//     const handleLogout = () => {
-//         logout();
-//         router.push("/login");
-//     };
-
-//     return (
-//         <nav className="bg-black-900 text-white p-4 shadow-md fixed top-0 left-0 w-full z-10">
-//             <div className="container mx-auto flex justify-between items-center">
-//                 <Link href="/" className="flex items-center space-x-2 text-lg font-bold">
-//                     <img
-//                         src="/logo.png" // Replace with your logo path
-//                         alt="Logo"
-//                         className="h-8 w-8 rounded-full border border-gray-300"
-//                     />
-//                     <span>Data Analyst</span>
-//                 </Link>
-//                 <div className="flex space-x-4">
-//                     <Link href="/">Home</Link>
-//                     {isLoggedIn && (
-//                         <>
-//                             <Link href="/dashboard">App</Link>
-//                             <Link href="/upload">Upload</Link>
-//                             <button
-//                                 onClick={handleLogout}
-//                                 className="text-red-500 hover:text-red-400"
-//                             >
-//                                 Logout
-//                             </button>
-//                         </>
-//                     )}
-//                     {!isLoggedIn && <Link href="/login">Login</Link>}
-//                 </div>
-//             </div>
-//         </nav>
-//     );
-// };
-
-// export default Navbar;
-//first
-
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
+import "../../styles/globals.css"; // Import global CSS
 
 const Navbar = () => {
     const { isLoggedIn, logout } = useAuth();
@@ -69,29 +20,35 @@ const Navbar = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+const [storedUsername, setStoredUsername] = useState("");
+useEffect(() => {
+    const storedUsernamex = localStorage.getItem("username");
+    setStoredUsername(storedUsernamex||"");
+});
+
     return (
-        <nav className="bg-black-900 text-amber-300 p-4 shadow-md fixed top-0 left-0 w-full z-10">
+        <nav className="p-4 shadow-md fixed top-0 left-0 w-full z-10" style={{ backgroundColor: 'var(--navbar-bg)', color: 'var(--navbar-text)' }}>
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo Section */}
-                <Link href="/" className="flex items-center space-x-2 text-lg font-bold">
+                <Link href="/" className="flex items-center space-x-2 text-lg font-bold hover:text-gray-600">
                     <img
                         src="/logo.webp" // Replace with your logo path
                         alt="Logo"
-                        className="h-8 w-8 rounded-full border border-grey-300"
+                        className="h-8 w-8 rounded-full border border-black"
                     />
-                    <span>Data Analyst</span>
+                    <span>Lion Parcel</span>
                 </Link>
 
                 {/* Hamburger Icon */}
                 <button
-                    className="block md:hidden text-amber-300 focus:outline-none"
+                    className="block md:hidden focus:outline-none"
                     onClick={toggleMenu}
                 >
                     <svg
                         className="h-6 w-6"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
-                        viewBox="0 0 24 24"
+                        viewBox="0 24 24"
                         stroke="currentColor"
                     >
                         {isMenuOpen ? (
@@ -114,27 +71,32 @@ const Navbar = () => {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-4">
-                    <Link href="/" className="hover:text-amber-300">
+                        {storedUsername && (
+                            <div className="hover:text-gray-600 animate-bounce font-bold">
+                                Howdy, {storedUsername === "admin" ? "DA Team?" : storedUsername === "aldus" ? "Aldus?" : storedUsername === "yerrisa" ? "Yerrisa?" : storedUsername  === "ryan" ? "Ryan?" : storedUsername === "christin" ? "Christin?" : storedUsername === "aurel" ? "Aurel?" : storedUsername  === "lingga" ? "Lingga?" : storedUsername}
+                            </div>
+                        )}	 	
+                    <Link href="/" className="hover:text-gray-600 font-bold">
                         Home
                     </Link>
                     {isLoggedIn && (
                         <>
-                            <Link href="/dashboard" className="hover:text-amber-300">
+                            <Link href="/dashboard" className="hover:text-gray-600 font-bold">
                                 App
                             </Link>
-                            <Link href="/upload" className="hover:text-amber-300">
+                            <Link href="/upload" className="hover:text-gray-600 font-bold">
                                 Upload
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="text-red-500 hover:text-red-300"
+                                className="text-red-500 hover:text-gray-600 font-bold"
                             >
                                 Logout
                             </button>
                         </>
                     )}
                     {!isLoggedIn && (
-                        <Link href="/login" className="hover:text-amber-300">
+                        <Link href="/login" className="hover:text-gray-600 font-bold">
                             Login
                         </Link>
                     )}
@@ -143,10 +105,10 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="md:hidden mt-7 bg-black-800 shadow-md rounded-lg">
+                <div className="md:hidden mt-7 shadow-md rounded-lg pt-12" style={{ backgroundColor: 'var(--navbar-bg)', color: 'var(--navbar-text)' }}>
                     <Link
                         href="/"
-                        className="block px-4 py-2 text-sm hover:bg-black-700"
+                        className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Home
@@ -154,22 +116,15 @@ const Navbar = () => {
                     {isLoggedIn && (
                         <>
                             <Link
-                                href="/"
-                                className="block px-4 py-2 text-sm hover:bg-black-700"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                Home
-                            </Link>
-                            <Link
                                 href="/dashboard"
-                                className="block px-4 py-2 text-sm hover:bg-black-700"
+                                className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 App
                             </Link>
                             <Link
                                 href="/upload"
-                                className="block px-4 py-2 text-sm hover:bg-black-700"
+                                className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Upload
@@ -179,7 +134,7 @@ const Navbar = () => {
                                     handleLogout();
                                     setIsMenuOpen(false);
                                 }}
-                                className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:text-red-400"
+                                className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-600 hover:text-white font-bold"
                             >
                                 Logout
                             </button>
@@ -188,7 +143,7 @@ const Navbar = () => {
                     {!isLoggedIn && (
                         <Link
                             href="/login"
-                            className="block px-4 py-2 text-sm hover:bg-black-700"
+                            className="block px-4 py-2 text-sm hover:bg-gray-600 font-bold"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Login

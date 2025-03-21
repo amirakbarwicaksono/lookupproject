@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/00.%20Akbar%202024/12.%20Lion%20Parcel/00.%20Development/Framework/frontend/app/components/ProtectedRoute.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { useEffect } from \"react\";\r\nimport { useRouter } from \"next/navigation\";\r\n\r\nexport default function ProtectedRoute({ children }: { children: React.ReactNode }) {\r\n    const router = useRouter();\r\n\r\n    useEffect(() => {\r\n        const token = localStorage.getItem(\"authToken\");\r\n        if (!token) {\r\n            router.push(\"/login\");\r\n        }\r\n    }, [router]);\r\n\r\n    return <>{children}</>;\r\n}\r\n"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAKe,SAAS,eAAe,EAAE,QAAQ,EAAiC;IAC9E,MAAM,SAAS,CAAA,GAAA,kIAAA,CAAA,YAAS,AAAD;IAEvB,CAAA,GAAA,qMAAA,CAAA,YAAS,AAAD,EAAE;QACN,MAAM,QAAQ,aAAa,OAAO,CAAC;QACnC,IAAI,CAAC,OAAO;YACR,OAAO,IAAI,CAAC;QAChB;IACJ,GAAG;QAAC;KAAO;IAEX,qBAAO;kBAAG;;AACd"}},
+    {"offset": {"line": 31, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

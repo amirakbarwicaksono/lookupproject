@@ -3,6 +3,8 @@
 import { useState } from "react";
 import SubpageGuard from "../../components/SubpageGuard";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import "../../../styles/globals.css"; // Import global CSS
+import { FaFileDownload, FaPlay } from "react-icons/fa";
 
 export default function DtkofPage() {
     const [vlookupMessage, setVlookupMessage] = useState("Initializing...");
@@ -68,6 +70,8 @@ export default function DtkofPage() {
             setVlookupMessage("API URL is not configured.");
             return;
         }
+        
+        setIsDownloadEnabled(false); // Disable download immediately after clicking
 
         try {
             const response = await fetch(`${apiUrl}/exportCSVkif`);
@@ -80,7 +84,7 @@ export default function DtkofPage() {
             const downloadUrl = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = downloadUrl;
-            a.download = "Konsolidation_Inbound_Fee.csv";
+            a.download = "Konsolidation_Outbound_Fee.csv";
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -95,56 +99,56 @@ export default function DtkofPage() {
     return (
         <ProtectedRoute>
             <SubpageGuard requiredAccess="dtkif">
-                <div className="min-h-screen bg-black text-gray-200 p-4">
+                <div className="min-h-screen p-4 bg-background text-black">
                     <header className="mb-6">
                         <h1 className="text-xl font-bold mb-1">
                             Data Konsolidator Inbound Fee
                         </h1>
-                        <p className="font-mono text-xs text-white-100">
+                        <p className="font-mono text-xs">
                             Data Konsolidator Inbound Fee Lookup and Export CSV Process.
                         </p>
                     </header>
                     <div className="flex flex-wrap gap-5 justify-center">
                         {/* VLOOKUP Process Section */}
-                        <div className="p-4 bg-gray-900 rounded shadow text-center w-56 hover:shadow-lg transform hover:scale-105 transition">
-                            <h2 className="text-sm font-semibold text-white mb-3">
+                        <div className="p-4 bg-foreground rounded shadow text-center w-56 hover:shadow-lg transform hover:scale-105 transition">
+                            <h2 className="text-sm font-semibold mb-3 text-black">
                                 Proses Vlookup Konsolidator Inbound Fee
                             </h2>
                             <button
                                 onClick={handleVlookupProcess}
                                 disabled={isProcessing}
-                                className={`w-full px-3 py-1.5 text-xs font-semibold text-white rounded ${
+                                className={`w-full px-3 py-1.5 text-xs font-semibold text-black rounded ${
                                     isProcessing
                                         ? "bg-gray-300 cursor-not-allowed"
-                                        : "bg-blue-resistance hover:bg-blue-resistance"
+                                        : "bg-secondary hover:bg-secondary"
                                 }`}
                             >
-                                {isProcessing ? "Processing..." : "Start VLOOKUP"}
+                                {isProcessing ? "Processing..." : <><FaPlay className="inline mr-1" /> Start VLOOKUP</>}
                             </button>
-                            <p className="mt-3 text-xs text-gray-400">{vlookupMessage}</p>
+                            <p className="mt-3 text-xs text-black">{vlookupMessage}</p>
                         </div>
 
                         {/* CSV Download Section */}
                         <div
-                            className={`p-4 bg-gray-800 rounded shadow text-center w-56 ${
+                            className={`p-4 bg-foreground rounded shadow text-center w-56 ${
                                 isDownloadEnabled
                                     ? "hover:shadow-lg transform hover:scale-105 transition"
                                     : "opacity-50 cursor-not-allowed"
                             }`}
                         >
-                            <h2 className="text-sm font-semibold text-white mb-3">
+                            <h2 className="text-sm font-semibold mb-3 text-black">
                                 Download CSV Konsolidator Inbound Fee
                             </h2>
                             <button
                                 onClick={handleDownload}
                                 disabled={!isDownloadEnabled}
-                                className={`w-full px-3 py-1.5 text-xs font-semibold text-white rounded ${
+                                className={`w-full px-3 py-1.5 text-xs font-semibold text-black rounded ${
                                     isDownloadEnabled
-                                        ? "bg-blue-resistance hover:bg-blue-resistance"
-                                        : "bg-gray-300 cursor-not-allowed"
+                                        ? "bg-secondary hover:bg-secondary"
+                                        : "bg-secondary cursor-not-allowed"
                                 }`}
                             >
-                                {isDownloadEnabled ? "Download CSV" : "Download Disabled"}
+                                {isDownloadEnabled ? <><FaFileDownload className="inline mr-1" /> Download CSV</> : "Download Disabled"}
                             </button>
                         </div>
                     </div>

@@ -12,10 +12,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a; /* Dark mode background */
-    --foreground: #ededed; /* Dark mode text color */
-    --navbar-bg: #000072; /* Dark mode Navbar background */
-    --navbar-text: #d1d5db; /* Dark mode Navbar text color */
+    --background: #0a0a0a; /*#efefd7; /*#0a0a0a; /* Dark mode background */
+    --foreground: #ededed; /*#1f3fc3; /*#ededed; /* Dark mode text color */
+    --navbar-bg: #000072; /*#1f3fc3; /*#000072; /* Dark mode Navbar background */
+    --navbar-text: #d1d5db; /*#efefd7; /*#d1d5db; /* Dark mode Navbar text color */
   }
 }
 
