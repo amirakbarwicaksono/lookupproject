@@ -229,11 +229,15 @@ Here are some screenshots of the frontend application:
 ![Home](frontend/public/image-2.png)
 
 #### Dashboard With Access
+Dashboard Admin
 ![Dashboard Admin](frontend/public/image-4.png)
+Dashboard User
 ![Dashboard User](frontend/public/image-5.png)
 
-#### Upload Page
-![Upload Admin](frontend/public/image-6.png)
+#### Upload Page With Acces
+Upload Admin
+![Upload Admin](frontend/public/image-6.png)\
+Upload User
 ![Upload User](frontend/public/image-7.png)
 
 #### Lookup Process
