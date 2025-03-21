@@ -20,3 +20,5 @@
 //v.1.0 <<all function ok aldy check>>
 //v.1.1 change colour pallete
 //v.1.2 update month and other request by team LP (Finish 17032025)
+
+![alt text](image.png)
