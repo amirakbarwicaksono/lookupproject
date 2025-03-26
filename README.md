@@ -133,16 +133,13 @@ The Lookup Project is a full-stack application designed for managing and process
 
 > The frontend application includes the following features:
 >
-> - **Upload Page**:
-Admin
-![Admin](frontend/public/image-1.png)
-User(PIC)
-![User(PIC)](frontend/public/image-2.png)
->   - Allows users to upload CSV files into various collections.
->   - Includes a date range selection feature for specific collections like "Master Rate Forward".
->   - Displays upload progress, success, and error messages.
->   - Provides a header download option for collections.
->
+> - **Home Page**:
+Home Page
+![Home Page](frontend/public/image-4.png)
+>   - Provides an overview of data collections with their respective counts.
+>   - Displays the last updated timestamp for each collection.
+>   - Includes links to log history for detailed insights.
+
 > - **Login Page**:
 Login Page
 ![Login Page](frontend/public/image.png)
@@ -157,13 +154,16 @@ Log History & Export CSV
 >   - Supports pagination for better navigation of logs.
 >   - Allows exporting logs as a CSV file.
 >
-> - **Home Page**:
-Home Page
-![Home Page](frontend/public/image-4.png)
->   - Provides an overview of data collections with their respective counts.
->   - Displays the last updated timestamp for each collection.
->   - Includes links to log history for detailed insights.
-
+> - **Upload Page**:
+Admin
+![Admin](frontend/public/image-1.png)
+User(PIC)
+![User(PIC)](frontend/public/image-2.png)
+>   - Allows users to upload CSV files into various collections.
+>   - Includes a date range selection feature for specific collections like "Master Rate Forward".
+>   - Displays upload progress, success, and error messages.
+>   - Provides a header download option for collections.
+>
 > - **Dashboard**:
 Admin Dashboard
 ![Dashboard](frontend/public/image-5.png)
@@ -171,9 +171,7 @@ Detail Fee
 ![Detail Fee](frontend/public/image-6.png)
 User(PIC) Dashboard
 ![User(PIC)Dashboard](frontend/public/image-7.png)
->   - Provides an overview of data collections with their respective counts.
->   - Displays the last updated timestamp for each collection.
->   - Includes links to log history for detailed insights.
+>   - Supports proses lookup and reconcile and export final process to CSV.
 
 >
 > These features enhance user experience by providing better control, visibility, and accessibility for managing data collections.
