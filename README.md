@@ -142,7 +142,7 @@ Home Page
 
  - **Log History Page**:
 Log History & Export CSV
-![Log-History](frontend/public/image-3.png)
+![Log History](frontend/public/image-3.png)
    - Displays detailed logs of uploaded data, including timestamps, collection names, and statuses.
    - Supports pagination for better navigation of logs.
    - Allows exporting logs as a CSV file.
