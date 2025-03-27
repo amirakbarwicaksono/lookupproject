@@ -171,7 +171,7 @@ Detail Fee
 ![Detail Fee](frontend/public/image-6.png)
 User(PIC) Dashboard
 ![User(PIC)Dashboard](frontend/public/image-7.png)
-   - Supports proses lookup and reconcile and export final process to CSV.
+   - Supports process lookup and reconcile and export final process to CSV.
 
 
  These features enhance user experience by providing better control, visibility, and accessibility for managing data collections.
