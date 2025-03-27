@@ -54,8 +54,9 @@ touch .env
 
 3. Add the following environment variables to the `.env` file:
 ```
-MONGO_URI=<your-mongodb-uri>
-PORT=8080
+    MONGODB_URI=mongodb://192.168.198.139:27017
+    MONGODB_DATABASE=lionp
+    PORT=8080
 ```
 
 4. Install dependencies:
