@@ -109,7 +109,7 @@ We welcome contributions! Follow these steps to get started:
 
 1. Fork the repository and clone it to your local machine:
 ```bash
-git clone <your-forked-repository-url>
+git clone https://github.com/amirakbarwicaksono/lookupproject.git
 ```
 
 2. Create a new branch for your feature or bug fix:
