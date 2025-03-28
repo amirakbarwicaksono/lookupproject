@@ -1,0 +1,301 @@
+package handlers
+
+import (
+	"Framework/db"
+	"context"
+	"log"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+// EnsureIndexes creates or updates indexes for all necessary collections
+func EnsureIndexes() {
+	// Helper function to check and create indexes
+	ensureIndexes := func(collection *mongo.Collection, indexes []mongo.IndexModel) {
+		// Get the list of existing indexes
+		existingIndexes, err := collection.Indexes().List(context.Background())
+		if err != nil {
+			log.Printf("Failed to list indexes for collection %s: %v", collection.Name(), err)
+			return
+		}
+
+		// Collect existing index specifications
+		var existingIndexSpecs []bson.M
+		for existingIndexes.Next(context.Background()) {
+			var index bson.M
+			if err := existingIndexes.Decode(&index); err != nil {
+				log.Printf("Failed to decode existing index for collection %s: %v", collection.Name(), err)
+				continue
+			}
+			existingIndexSpecs = append(existingIndexSpecs, index)
+		}
+
+		// Check if each new index already exists
+		for _, index := range indexes {
+			keySpec := index.Keys
+			exists := false
+			for _, existing := range existingIndexSpecs {
+				if bsonEqual(existing["key"], keySpec) {
+					exists = true
+					break
+				}
+			}
+
+			// If index exists, skip creation
+			if exists {
+				log.Printf("Index with keys %v already exists in collection %s", keySpec, collection.Name())
+				continue
+			}
+
+			// Create the index if it doesn't exist
+			if _, err := collection.Indexes().CreateOne(context.Background(), index); err != nil {
+				log.Printf("Failed to create index with keys %v for collection %s: %v", keySpec, collection.Name(), err)
+			} else {
+				log.Printf("Created index with keys %v for collection %s", keySpec, collection.Name())
+			}
+		}
+	}
+
+	// Define collections and their indexes
+	datakofCollection := db.GetCollection("datakof")
+	datakifCollection := db.GetCollection("datakif")
+	datasofCollection := db.GetCollection("datasof")
+	datasifCollection := db.GetCollection("datasif")
+	mastertbs4Collection := db.GetCollection("mastertbs_4")
+	mastermn1Collection := db.GetCollection("mastermn_1")
+	masterls3Collection := db.GetCollection("masterls_3")
+	masteric2Collection := db.GetCollection("masteric_2")
+	masterbc5Collection := db.GetCollection("masterbc_5") // Added masterbc_5
+
+	// Indexes for datakof
+	datakofIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datakofCollection, datakofIndexes)
+
+	// Indexes for datakif
+	datakifIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datakifCollection, datakifIndexes)
+
+	// Indexes for datasof
+	datasofIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datasofCollection, datasofIndexes)
+
+	// Indexes for datasif
+	datasifIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datasifCollection, datasifIndexes)
+
+	// Indexes for mastertbs_4
+	mastertbs4Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}, {Key: "Bill", Value: -1}}, Options: options.Index().SetName("index_kode_bill")},
+	}
+	ensureIndexes(mastertbs4Collection, mastertbs4Indexes)
+
+	// Indexes for mastermn_1
+	mastermn1Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+	}
+	ensureIndexes(mastermn1Collection, mastermn1Indexes)
+
+	// Indexes for masterls_3
+	masterls3Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(masterls3Collection, masterls3Indexes)
+
+	// Indexes for masteric_2
+	masteric2Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no_masteric2")},                                      // Index for STT No
+		{Keys: bson.D{{Key: "STT No", Value: 1}, {Key: "STT Booked At", Value: -1}}, Options: options.Index().SetName("index_stt_no_booked_desc")}, // Compound index for STT No and sorting by STT Booked At
+	}
+	ensureIndexes(masteric2Collection, masteric2Indexes)
+
+	// Indexes for masterbc_5
+	masterbc5Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no_masterbc5")},                                             // Index for STT No
+		{Keys: bson.D{{Key: "STT No", Value: 1}, {Key: "Invoice/Number", Value: -1}}, Options: options.Index().SetName("index_invoice_number_masterbc5")}, // Compound index for STT No and sorting by Invoice/Number
+	}
+	ensureIndexes(masterbc5Collection, masterbc5Indexes)
+
+	log.Println("Indexes ensured successfully for all collections")
+}
+
+// Helper function to compare BSON documents
+func bsonEqual(a, b interface{}) bool {
+	ab, errA := bson.Marshal(a)
+	bb, errB := bson.Marshal(b)
+	if errA != nil || errB != nil {
+		return false
+	}
+	return string(ab) == string(bb)
+}
+
+package handlers
+
+import (
+	"Framework/db"
+	"context"
+	"log"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+// EnsureIndexes creates or updates indexes for all necessary collections
+func EnsureIndexes() {
+	// Helper function to check and create indexes
+	ensureIndexes := func(collection *mongo.Collection, indexes []mongo.IndexModel) {
+		// Get the list of existing indexes
+		existingIndexes, err := collection.Indexes().List(context.Background())
+		if err != nil {
+			log.Printf("Failed to list indexes for collection %s: %v", collection.Name(), err)
+			return
+		}
+
+		// Collect existing index specifications
+		var existingIndexSpecs []bson.M
+		for existingIndexes.Next(context.Background()) {
+			var index bson.M
+			if err := existingIndexes.Decode(&index); err != nil {
+				log.Printf("Failed to decode existing index for collection %s: %v", collection.Name(), err)
+				continue
+			}
+			existingIndexSpecs = append(existingIndexSpecs, index)
+		}
+
+		// Check if each new index already exists
+		for _, index := range indexes {
+			keySpec := index.Keys
+			exists := false
+			for _, existing := range existingIndexSpecs {
+				if bsonEqual(existing["key"], keySpec) {
+					exists = true
+					break
+				}
+			}
+
+			// If index exists, skip creation
+			if exists {
+				log.Printf("Index with keys %v already exists in collection %s", keySpec, collection.Name())
+				continue
+			}
+
+			// Create the index if it doesn't exist
+			if _, err := collection.Indexes().CreateOne(context.Background(), index); err != nil {
+				log.Printf("Failed to create index with keys %v for collection %s: %v", keySpec, collection.Name(), err)
+			} else {
+				log.Printf("Created index with keys %v for collection %s", keySpec, collection.Name())
+			}
+		}
+	}
+
+	// Define collections and their indexes
+	datakofCollection := db.GetCollection("datakof")
+	datakifCollection := db.GetCollection("datakif")
+	datasofCollection := db.GetCollection("datasof")
+	datasifCollection := db.GetCollection("datasif")
+	mastertbs4Collection := db.GetCollection("mastertbs_4")
+	mastermn1Collection := db.GetCollection("mastermn_1")
+	masterls3Collection := db.GetCollection("masterls_3")
+	masteric2Collection := db.GetCollection("masteric_2")
+	masterbc5Collection := db.GetCollection("masterbc_5")
+
+	// Indexes for datakof
+	datakofIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datakofCollection, datakofIndexes)
+
+	// Indexes for datakif
+	datakifIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datakifCollection, datakifIndexes)
+
+	// Indexes for datasof
+	datasofIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datasofCollection, datasofIndexes)
+
+	// Indexes for datasif
+	datasifIndexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("index_kode")},
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("index_stt_no")},
+	}
+	ensureIndexes(datasifCollection, datasifIndexes)
+
+	// Indexes for mastermn_1
+	mastermn1Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Mitra Code Genesis", Value: 1}}, Options: options.Index().SetName("index_mitra_code_genesis")},
+		{Keys: bson.D{{Key: "Nama Mitra", Value: 1}}, Options: options.Index().SetName("unique_NamaMitra").SetUnique(true)},
+	}
+	ensureIndexes(mastermn1Collection, mastermn1Indexes)
+
+	// Indexes for masteric_2
+	masteric2Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("unique_STTNo").SetUnique(true)},
+	}
+	ensureIndexes(masteric2Collection, masteric2Indexes)
+
+	// Indexes for masterls_3
+	masterls3Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "STT No", Value: 1}}, Options: options.Index().SetName("unique_STTNo").SetUnique(true)},
+		{Keys: bson.D{{Key: "STT No", Value: 1}, {Key: "STT Booked At", Value: -1}}, Options: options.Index().SetName("index_stt_no_booked_desc")},
+	}
+	ensureIndexes(masterls3Collection, masterls3Indexes)
+
+	// Indexes for mastertbs_4
+	mastertbs4Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Kode", Value: 1}}, Options: options.Index().SetName("unique_Kode").SetUnique(true)},
+	}
+	ensureIndexes(mastertbs4Collection, mastertbs4Indexes)
+
+	// Indexes for masterbc_5
+	masterbc5Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Stt ID", Value: 1}}, Options: options.Index().SetName("unique_STTId").SetUnique(true)},
+	}
+	ensureIndexes(masterbc5Collection, masterbc5Indexes)
+
+		// Indexes for masterrg_6
+	masterrg6Indexes := []mongo.IndexModel{
+		{Keys: bson.D{{Key: "Productroute", Value: 1}}, Options: options.Index().SetName("unique_productroute").SetUnique(true)},
+	}
+	ensureIndexes(masterbc5Collection, masterbc5Indexes)
+
+	log.Println("Indexes ensured successfully for all collections")
+}
+
+// Helper function to compare BSON documents
+func bsonEqual(a, b interface{}) bool {
+	ab, errA := bson.Marshal(a)
+	bb, errB := bson.Marshal(b)
+	if errA != nil || errB != nil {
+		return false
+	}
+	return string(ab) == string(bb)
+}

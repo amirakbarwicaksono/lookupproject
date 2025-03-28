@@ -1,0 +1,55 @@
+Note for Development
+
+1. Waktu install mongodb harusnya include jg mongodb tools, digunakan untuk export import database pada saat akan migrasi atau untuk proses backup.
+2. baiknya index yang dibuat dalam mongodb shell dicatat untuk mempermudah proses migrasi jika databased diexport tidak diinclude kan indexes.
+
+///index pada mongodb untuk datakof
+db.datakof.createIndex({ Kode: 1 }, { name: "index_kode", v: 2 });
+db.datakof.createIndex({ "Mitra Code Genesis": 1 }, { name: "index_mitra_code_genesis", v: 2 });
+db.datakof.createIndex({ "Client Name": 1 }, { name: "Client Name_1", v: 2 });
+db.datakof.createIndex({ "STT No": 1 }, { name: "index_stt_no", v: 2 });
+
+///index pada mongodb untuk mastermn_1
+db.mastermn_1.createIndex({ "Mitra Code Genesis": 1 }, { name: "index_mitra_code_genesis", v: 2 });
+
+///index pada mongodb untuk masteric_2
+db.masteric_2.createIndex({ "STT No": 1 }, { name: "index_stt_no_masteric2", v: 2 });
+db.masteric_2.createIndex({ "STT No": 1, "STT Booked At": -1 }, { name: "index_stt_no_booked_desc", v: 2 });
+db.masteric_2.createIndex({ "STT No": 1 }, { name: "unique_STTNo", unique: true, v: 2 });
+db.masteric_2.createIndex({ "Client Name": 1 }, { name: "Client Name_1", v: 2 });
+
+///index pada mongodb untuk masterls_3
+db.masterls_3.createIndex({ "STT No": 1 }, { name: "index_stt_no", v: 2 });
+db.masterls_3.createIndex({ "STT No": 1, "STT Booked At": -1 }, { name: "index_stt_no_booked_desc", v: 2 });
+db.masterls_3.createIndex({ "STT No": 1 }, { name: "unique_STTNo", unique: true, v: 2 });
+
+///index pada mongodb untuk mastertbs_4
+db.mastertbs_4.createIndex({ Kode: 1, Bill: -1 }, { name: "index_kode_bill", v: 2 });
+db.mastertbs_4.createIndex({ Kode: 1 }, { name: "unique_Kode", unique: true, v: 2 });
+db.mastertbs_4.createIndex({ Bill: 1 }, { name: "Bill_1", v: 2 });
+
+///index pada mongodb untuk masterbc_5
+db.masterbc_5.createIndex({ "STT No": 1 }, { name: "index_stt_no_masterbc5", v: 2 });
+db.masterbc_5.createIndex({ "STT No": 1, "Invoice/Number": -1 }, { name: "index_invoice_number_masterbc5", v: 2 });
+db.masterbc_5.createIndex({ "Stt ID": 1 }, { name: "unique_STTId", unique: true, v: 2 });
+
+///index pada mongodb untuk masterrg_6
+db.masterrg_6.createIndex({ Productroute: 1 }, { name: "unique_productroute", unique: true, v: 2 });
+
+///index pada mongodb untuk masterrf_7
+db.masterrf_7.createIndex(
+  { "District Name": 1, start_date: 1, end_date: 1 },
+  { name: "idx_masterrf_key_fields", v: 2 }
+);
+
+///index pada mongodb untuk masterrt_8
+///index pada mongodb untuk masterdl_9
+///index pada mongodb untuk mastermt_10
+
+
+
+///lookup_processfro
+db.collection.createIndex(
+  { Kode: 1, "Mitra Code Genesis": 1, "STT No": 1 },
+  { name: "idx_lookup_processfro_key_fields", v: 2 }
+);
