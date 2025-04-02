@@ -175,9 +175,9 @@ User(PIC) Dashboard
    - Supports process lookup and reconcile and export final process to CSV.
 
  - **Mobile Menu**:
-Mobile Menu Login
+* Mobile Menu Login
 ![Mobile Menu Login](frontend/public/imagemobilelogin.png)
-Mobile Menu Home
+* Mobile Menu Home
 ![Mobile Menu Home](frontend/public/imagemobilehome.png)
 
    - Provides a collapsible navigation menu optimized for mobile devices.
