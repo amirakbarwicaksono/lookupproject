@@ -174,6 +174,16 @@ User(PIC) Dashboard
 ![User(PIC)Dashboard](frontend/public/image-7.png)
    - Supports process lookup and reconcile and export final process to CSV.
 
+ - **Mobile Menu**:
+* Mobile Menu Login
+![Mobile Menu Login](frontend/public/imagemobilelogin.png)
+* Mobile Menu Home
+![Mobile Menu Home](frontend/public/imagemobilehome.png)
+
+   - Provides a collapsible navigation menu optimized for mobile devices.
+   - Includes links to all major sections of the application.
+   - Features smooth animations and responsive design for better usability.
+
 
  These features enhance user experience by providing better control, visibility, and accessibility for managing data collections.
 
